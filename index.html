@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <style>
+        :root {
+            --light-bg: #ffffff;
+            --light-text: #000000;
+            --dark-bg: #181818;
+            --dark-text: #ffffff;
+            --hover-light: #000000;
+            --hover-dark: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: var(--light-bg);
+            color: var(--light-text);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: inherit;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: var(--hover-light);
+            color: var(--hover-dark);
+        }
+
+        section {
+            height: 100vh;
+            padding: 100px 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">My Logo</div>
+        <div class="nav-links">
+            <a href="#my-work">My Work</a>
+            <a href="#why-choose-me">Why Choose Me</a>
+            <a href="#contact">Contact Me</a>
+        </div>
+    </nav>
+
+    <section id="my-work">My Work Section</section>
+    <section id="why-choose-me">Why Choose Me Section</section>
+    <section id="contact">Contact Me Section</section>
+
+    <script>
+        function applyTheme() {
+            const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.body.style.background = isDarkMode ? 'var(--dark-bg)' : 'var(--light-bg)';
+            document.body.style.color = isDarkMode ? 'var(--dark-text)' : 'var(--light-text)';
+            document.querySelector('.navbar').style.background = isDarkMode ? 'var(--dark-bg)' : 'var(--light-bg)';
+            document.querySelector('.navbar').style.color = isDarkMode ? 'var(--dark-text)' : 'var(--light-text)';
+        }
+
+        applyTheme();
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+    </script>
+</body>
+</html>
