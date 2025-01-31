@@ -12,6 +12,9 @@
             --dark-text: #ffffff;
             --hover-light: #000000;
             --hover-dark: #ffffff;
+            --hover-dark-bg: #ffffff;
+            --hover-dark-text: #000000;
+            --dark-border: #ffffff;
         }
 
         body {
@@ -32,7 +35,7 @@
             background: var(--light-bg);
             color: var(--light-text);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: background 0.3s, color 0.3s;
+            transition: background 0.3s, color 0.3s, border-bottom 0.3s;
         }
 
         .nav-links {
@@ -45,12 +48,46 @@
             color: inherit;
             padding: 10px 15px;
             border-radius: 5px;
-            transition: background 0.3s;
+            transition: background 0.3s, color 0.3s;
         }
 
         .nav-links a:hover {
             background: var(--hover-light);
             color: var(--hover-dark);
+        }
+
+        body.dark-mode .nav-links a:hover {
+            background: var(--hover-dark-bg);
+            color: var(--hover-dark-text);
+        }
+
+        body.dark-mode .navbar {
+            border-bottom: 2px solid var(--dark-border);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--light-text);
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .theme-toggle img {
+            width: 30px;
+            height: 30px;
+        }
+
+        body.dark-mode .theme-toggle {
+            background: var(--dark-text);
         }
 
         section {
@@ -61,7 +98,7 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">My Logo</div>
+        <div class="logo"><img src="logo.png" alt="Logo"></div>
         <div class="nav-links">
             <a href="#my-work">My Work</a>
             <a href="#why-choose-me">Why Choose Me</a>
@@ -69,21 +106,33 @@
         </div>
     </nav>
 
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <img id="theme-icon" src="https://cdn-icons-png.flaticon.com/512/702/702797.png" alt="Brightness Icon">
+    </button>
+
     <section id="my-work">My Work Section</section>
     <section id="why-choose-me">Why Choose Me Section</section>
     <section id="contact">Contact Me Section</section>
 
     <script>
         function applyTheme() {
-            const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const isDarkMode = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            document.body.classList.toggle('dark-mode', isDarkMode);
             document.body.style.background = isDarkMode ? 'var(--dark-bg)' : 'var(--light-bg)';
             document.body.style.color = isDarkMode ? 'var(--dark-text)' : 'var(--light-text)';
             document.querySelector('.navbar').style.background = isDarkMode ? 'var(--dark-bg)' : 'var(--light-bg)';
             document.querySelector('.navbar').style.color = isDarkMode ? 'var(--dark-text)' : 'var(--light-text)';
+            document.getElementById('theme-icon').src = isDarkMode ? 'https://cdn-icons-png.flaticon.com/512/1163/1163661.png' : 'https://cdn-icons-png.flaticon.com/512/702/702797.png';
+        }
+
+        function toggleTheme() {
+            const isDarkMode = document.body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+            applyTheme();
         }
 
         applyTheme();
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
     </script>
 </body>
 </html>
+
