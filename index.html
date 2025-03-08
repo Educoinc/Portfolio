@@ -80,6 +80,12 @@
             justify-content: center;
             transition: background 0.3s;
         }
+        .theme-toggle:hover {
+    background: var(--dark-text);
+    transform: scale(1.1);
+    transition: background 0.3s, transform 0.2s;
+}
+
 
         .theme-toggle img {
             width: 30px;
@@ -107,7 +113,7 @@
     </nav>
 
     <button class="theme-toggle" onclick="toggleTheme()">
-        <img id="theme-icon" src="https://cdn-icons-png.flaticon.com/512/702/702797.png" alt="Brightness Icon">
+        <img id="theme-icon" src="brightness.jpeg" alt="Brightness Icon">
     </button>
 
     <section id="my-work">My Work Section</section>
@@ -135,4 +141,3 @@
     </script>
 </body>
 </html>
-
